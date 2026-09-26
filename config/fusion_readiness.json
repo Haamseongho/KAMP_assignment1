@@ -1,0 +1,41 @@
+{
+  "status": "not_required_for_general_student_task01",
+  "competition_track": "general_student",
+  "track_evidence": "User confirmed 일반국민·대학(원)생 과제①; official 2026-09-22 notice https://www.kamp-ai.kr/contestNoticeDetail?CPT_NOTICE_SEQ=28 (checked 2026-09-26)",
+  "optional_fusion_requested": false,
+  "primary": {
+    "dataset_id": "kamp_injection_molding",
+    "role": "primary_quality_ranking",
+    "files_are_one_dataset_not_four": true,
+    "machines": ["cn7", "rg3"],
+    "physical_units_confirmed": false,
+    "label_semantics_confirmed": false,
+    "prediction_time_confirmed": false
+  },
+  "auxiliary": null,
+  "linkage": {
+    "method": null,
+    "shared_physical_key_evidence": null,
+    "time_unit_alignment_evidence": null,
+    "pre_prediction_availability_evidence": null,
+    "scientific_rationale": null
+  },
+  "ablation": {
+    "status": "not_run",
+    "primary_only": "existing frozen logistic development OOF",
+    "primary_plus_auxiliary": null,
+    "same_evaluation_rows_required": true,
+    "same_group_folds_required": true,
+    "train_only_preprocessing_required": true,
+    "inner_selection_only_required": true,
+    "report_missing_link_rate_required": true,
+    "report_machine_metrics_and_uncertainty_required": true,
+    "external_period_status": "not_available"
+  },
+  "manufacturing_kpi": {
+    "baseline_measurements": null,
+    "inspection_duration": null,
+    "cost_per_error": null,
+    "observed_effect": "not_measured"
+  }
+}

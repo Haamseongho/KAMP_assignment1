@@ -1,0 +1,42 @@
+{
+  "source_scope": "five_user_supplied_markdown_files_only",
+  "documents_reread_as_context": true,
+  "model_or_data_execution_performed": false,
+  "files": [
+    {
+      "source_filename": "03_사출성형_검증보고서.md",
+      "included_path": "sources/03_사출성형_검증보고서.md",
+      "bytes": 17911,
+      "sha256": "edd5e7050c7bd1cf74b333ed855cc1d55228f705d4fea18d428d383204e191e4",
+      "content_modified": false
+    },
+    {
+      "source_filename": "04_추가데이터_요청명세.md",
+      "included_path": "sources/04_추가데이터_요청명세.md",
+      "bytes": 3212,
+      "sha256": "659f4f6a41a38f34ef585bba95d0b484c88612e25199b2cfeda32befe1edb04f",
+      "content_modified": false
+    },
+    {
+      "source_filename": "07_확률보정_및_조건부_오류분석.md",
+      "included_path": "sources/07_확률보정_및_조건부_오류분석.md",
+      "bytes": 10915,
+      "sha256": "03102ff5a0fb5a2b7e611d0cb7f14bc28cfd1ae902a2cef92bb059781e16e2b8",
+      "content_modified": false
+    },
+    {
+      "source_filename": "08_과제01_CPU_비교_결과_20260923.md",
+      "included_path": "sources/08_과제01_CPU_비교_결과_20260923.md",
+      "bytes": 3029,
+      "sha256": "2057c8943538d481ce3e3123d3c05a582a5b07b8d036476dcc67503ea855a152",
+      "content_modified": false
+    },
+    {
+      "source_filename": "프로젝트_고도화_로드맵.md",
+      "included_path": "sources/프로젝트_고도화_로드맵.md",
+      "bytes": 14641,
+      "sha256": "624cd8219ea6eb85bf7d02f131502f0367ad0bde43f530a1cc2014219e4f7cd8",
+      "content_modified": false
+    }
+  ]
+}

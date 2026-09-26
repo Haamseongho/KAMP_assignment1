@@ -18,6 +18,8 @@ from sklearn.metrics import brier_score_loss, f1_score, log_loss, precision_reca
 from sklearn.model_selection import StratifiedKFold, cross_val_predict
 
 import moldguard as mg
+import research_split
+from research_runtime import execution_record
 
 FROZEN = mg.ROOT / "outputs/local_runs/20260922-share-final"
 CONDITION_FEATURES = ["Clamp_Close_Time", "Max_Injection_Pressure", "Max_Switch_Over_Pressure"]
@@ -28,21 +30,9 @@ def dump(path: Path, value: object) -> None:
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
 
 
-def load_development() -> tuple[pd.DataFrame, list[str], dict]:
-    data, features, provenance = mg.load_data(mg.DATA_DIR, True)
-    frozen = json.loads((FROZEN / "run_manifest.json").read_text())
-    for name, source in provenance.items():
-        if source["sha256"] != frozen["split"]["source_files"][name]["sha256"]:
-            raise ValueError("Input changed: a new reviewed split is required")
-    membership = pd.read_csv(FROZEN / "split_manifest.csv")
-    data = mg.with_groups(data, features)
-    merged = data.merge(membership.rename(columns={"source_row_id": mg.ID_COL}),
-                        on=["machine", mg.ID_COL], how="outer", validate="one_to_one", indicator=True,
-                        suffixes=("", "_frozen"))
-    if not merged._merge.eq("both").all():
-        raise ValueError("Frozen manifest does not cover these inputs exactly")
-    if not merged.feature_group.eq(merged.feature_group_frozen).all():
-        raise ValueError("Feature-group identities changed")
+def load_development(data_dir=None, split_dir=None) -> tuple[pd.DataFrame, list[str], dict]:
+    merged, features, provenance = research_split.load_validated(
+        data_dir if data_dir is not None else mg.DATA_DIR, split_dir or FROZEN)
     development = merged.loc[merged.partition.eq("development")].copy().reset_index(drop=True)
     development["outer_fold"] = development.oof_validation_fold.astype(int)
     if set(development.outer_fold.unique()) != set(range(5)):
@@ -153,15 +143,13 @@ def paired_bootstrap(predictions: pd.DataFrame, repeats: int = 2000) -> dict:
     return result
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--output-dir", type=Path, required=True)
-    args = parser.parse_args()
-    output = args.output_dir.resolve()
-    if not output.is_relative_to(mg.ROOT / "outputs"):
-        parser.error("Use a new directory below this project's outputs/")
-    output.mkdir(parents=True, exist_ok=False)
-    data, features, provenance = load_development()
+def run(output, data_dir=None, split_dir=None):
+    with execution_record(output):
+        _run(output, data_dir, split_dir or FROZEN)
+
+
+def _run(output, data_dir, split_dir):
+    data, features, provenance = load_development(data_dir, split_dir)
     x = mg.feature_matrix(data, features)
     y = data[mg.TARGET].to_numpy()
     predictions = data[["machine", mg.ID_COL, "feature_group", "outer_fold"]].rename(
@@ -238,13 +226,23 @@ def main() -> None:
               "source_files": provenance,
               "source_hashes": {"moldguard.py": mg.sha256(mg.ROOT / "moldguard.py"),
                                 "calibration_diagnostics.py": mg.sha256(Path(__file__)),
-                                "frozen_split_manifest": mg.sha256(FROZEN / "split_manifest.csv")},
+                                "frozen_split_manifest": mg.sha256(split_dir / "split_manifest.csv")},
               "packages": {name: importlib.metadata.version(name) for name in ["numpy", "pandas", "scikit-learn", "scipy"]},
               "references": ["https://scikit-learn.org/1.5/modules/calibration.html",
                              "https://scikit-learn.org/1.5/modules/generated/sklearn.calibration.CalibratedClassifierCV.html"]}
     dump(output / "calibration_review.json", report)
-    dump(output / "artifact_hashes.json", {p.name: mg.sha256(p) for p in sorted(output.iterdir()) if p.is_file()})
+    dump(output / "artifact_hashes.json", {p.name: mg.sha256(p) for p in sorted(output.iterdir())
+                                          if p.is_file() and p.name not in {'execution.json', 'run.log'}})
     print(json.dumps(metrics, ensure_ascii=False, indent=2), flush=True)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output-dir', type=Path, required=True)
+    parser.add_argument('--data-dir', type=Path, default=mg.DATA_DIR)
+    parser.add_argument('--split-dir', type=Path, default=FROZEN)
+    args = parser.parse_args()
+    run(args.output_dir.resolve(), args.data_dir, args.split_dir)
 
 
 if __name__ == "__main__":

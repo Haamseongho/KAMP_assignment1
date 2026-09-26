@@ -1,0 +1,12 @@
+{
+  "project_id": "215209147869625880",
+  "authorization_date": "2026-09-26",
+  "basis": "User explicitly requested CPU integration testing despite missing evidence about additional charges.",
+  "zero_cost_verified": false,
+  "cpu_test_authorized_without_zero_cost_evidence": true,
+  "gpu_allowed": false,
+  "paid_plan_selection_or_payment_allowed": false,
+  "final_competition_submission_allowed": false,
+  "stop_service_after_test": true,
+  "note": "This supersedes the earlier free-evidence prerequisite for this bounded test only. It is not provider billing evidence and does not authorize an unlimited paid deployment."
+}

@@ -27,6 +27,7 @@ from xgboost import XGBClassifier
 
 import calibration_diagnostics as cd
 import moldguard as mg
+from research_runtime import execution_record
 
 
 ROOT = Path(__file__).resolve().parent
@@ -128,9 +129,9 @@ def make_candidate(name: str, seed: int, device: str, y_train: np.ndarray):
     raise ValueError(name)
 
 
-def validate_frozen_data() -> tuple[pd.DataFrame, pd.DataFrame, dict]:
-    data, features, provenance = cd.load_development()
-    frozen = pd.read_csv(cd.FROZEN / "split_manifest.csv")
+def validate_frozen_data(data_dir=None, split_dir=None) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
+    data, features, provenance = cd.load_development(data_dir, split_dir)
+    frozen = pd.read_csv((split_dir or cd.FROZEN) / "split_manifest.csv")
     if len(data) != int(frozen.partition.eq("development").sum()):
         raise ValueError("Frozen development row count differs")
     if set(data.feature_group) & set(frozen.loc[frozen.partition.eq("holdout"), "feature_group"]):
@@ -155,16 +156,18 @@ def score(y: np.ndarray, probability: np.ndarray) -> dict:
             "log_loss_unadjusted": float(log_loss(y, probability, labels=[0, 1]))}
 
 
-def run(device: str, output: Path, receipt: Path | None) -> None:
-    if output.exists():
-        raise FileExistsError(f"Never overwrite a prior run: {output}")
+def run(device: str, output: Path, receipt: Path | None, data_dir=None, split_dir=None) -> None:
+    with execution_record(output):
+        _run(device, output, receipt, data_dir, split_dir or cd.FROZEN)
+
+
+def _run(device, output, receipt, data_dir, split_dir):
     gpu_receipt, gpu_runtime = None, None
     if device == "gpu":
         gpu_receipt = check_gpu_receipt(receipt)
         gpu_runtime = check_gpu_runtime()
-    data, x, provenance = validate_frozen_data()
+    data, x, provenance = validate_frozen_data(data_dir, split_dir)
     models = GPU_MODELS if device == "gpu" else CPU_MODELS
-    output.mkdir(parents=True)
     started = datetime.now(timezone.utc).isoformat()
     y = data[mg.TARGET].to_numpy(dtype=int)
     prediction_rows, metric_rows, fold_rows, condition_rows = [], [], [], []
@@ -242,7 +245,7 @@ def run(device: str, output: Path, receipt: Path | None) -> None:
         "status": "complete_development_oof_not_independent_holdout", "device": device,
         "started_at_utc": started, "finished_at_utc": datetime.now(timezone.utc).isoformat(),
         "source_scope": "frozen development partition only; previous holdout not evaluated",
-        "frozen_manifest_sha256": mg.sha256(cd.FROZEN / "split_manifest.csv"),
+        "frozen_manifest_sha256": mg.sha256(split_dir / "split_manifest.csv"),
         "source_files": provenance, "development_rows": len(data),
         "development_groups": int(data.feature_group.nunique()),
         "development_label1": int(y.sum()), "folds": sorted(data.outer_fold.unique().tolist()),
@@ -258,7 +261,8 @@ def run(device: str, output: Path, receipt: Path | None) -> None:
         "python": sys.version, "platform": platform.platform(),
     }
     write_json(output / "run_manifest.json", manifest)
-    write_json(output / "artifact_hashes.json", {p.name: mg.sha256(p) for p in sorted(output.iterdir()) if p.is_file()})
+    write_json(output / "artifact_hashes.json", {p.name: mg.sha256(p) for p in sorted(output.iterdir())
+                                                if p.is_file() and p.name not in {'execution.json', 'run.log'}})
     print(f"complete: {output}", flush=True)
 
 
@@ -267,11 +271,11 @@ def main() -> None:
     parser.add_argument("--device", choices=("cpu", "gpu"), required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--task04-receipt", type=Path)
+    parser.add_argument('--data-dir', type=Path, default=mg.DATA_DIR)
+    parser.add_argument('--split-dir', type=Path, default=cd.FROZEN)
     args = parser.parse_args()
     output = args.output_dir.resolve()
-    if not output.is_relative_to(ROOT / "outputs"):
-        parser.error("Output must be a new directory below outputs/")
-    run(args.device, output, args.task04_receipt)
+    run(args.device, output, args.task04_receipt, args.data_dir, args.split_dir)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,10 @@
+FROM python:3.12-slim-bookworm
+ENV CUDA_VISIBLE_DEVICES="" \
+    OMP_NUM_THREADS=1 \
+    OPENBLAS_NUM_THREADS=1 \
+    MKL_NUM_THREADS=1 \
+    PYTHONUNBUFFERED=1 \
+    MOLDGUARD_MODEL_SHA256=f58243377e8fc934d9488bedf90e6d25111b6d6c722e0cd438b9c8e0e18d0341
+WORKDIR /work
+COPY requirements.txt /work/requirements.txt
+RUN pip install --no-cache-dir -r /work/requirements.txt

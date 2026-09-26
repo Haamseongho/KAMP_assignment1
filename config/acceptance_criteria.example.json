@@ -1,0 +1,74 @@
+{
+  "$comment": "사전 합의할 승인 기준 템플릿. null은 미합의이며 통과가 아니다. 이 파일은 실행 결과가 아니다.",
+  "schema_version": "moldguard-acceptance-proposal-v1",
+  "review_status": "not_agreed",
+  "field_approval_allowed": false,
+  "data_gate": {
+    "label_semantics": "unconfirmed",
+    "target_unit": "unconfirmed",
+    "product_shot_cavity_mapping": "unconfirmed",
+    "feature_availability": "unconfirmed",
+    "inspection_timing": "unconfirmed",
+    "raw_units": "unconfirmed",
+    "supplier_transform": "unconfirmed"
+  },
+  "evaluation_protocol": {
+    "development_split_hash": null,
+    "unused_final_period": null,
+    "boundary_shot_batch_rule": null,
+    "primary_operational_metric": null,
+    "comparison_policy": null,
+    "confidence_interval_method": null,
+    "zero_positive_handling": null,
+    "label_maturity_cutoff_rule": null
+  },
+  "machine_scopes": {
+    "CN7": {
+      "product_recipe_scope": null,
+      "min_positive_cases": null,
+      "min_top_k_capture": null,
+      "max_false_alarm_rate": null,
+      "max_allowed_capture_loss_vs_baseline": null,
+      "minimum_evaluation_period": null,
+      "maximum_interval_width": null,
+      "independent_evidence_path": null,
+      "approval_status": "blocked"
+    },
+    "RG3": {
+      "product_recipe_scope": null,
+      "min_positive_cases": null,
+      "min_top_k_capture": null,
+      "max_false_alarm_rate": null,
+      "max_allowed_capture_loss_vs_baseline": null,
+      "minimum_evaluation_period": null,
+      "maximum_interval_width": null,
+      "independent_evidence_path": null,
+      "approval_status": "blocked"
+    }
+  },
+  "hard_policy_acceptance": {
+    "skipped_required_inspections": 0,
+    "unauthorized_control_commands": 0,
+    "automatic_safe_classifications_on_missing_data": 0,
+    "unapproved_scope_activations": 0,
+    "future_data_used_for_prediction_or_queue_decision": 0
+  },
+  "operational_effect": {
+    "minimum_defect_discovery_time_improvement": null,
+    "maximum_total_wait_degradation": null,
+    "maximum_wait_seconds_by_scope": null,
+    "maximum_operator_notifications_per_shift": null,
+    "maximum_duplicate_alert_fraction": null,
+    "minimum_label_completion_fraction": null,
+    "inspection_duration_counterfactual_assumptions": null,
+    "worker_usability_evaluation_design": null
+  },
+  "approval": {
+    "required_approvers": null,
+    "approved_by": null,
+    "approved_at": null,
+    "expires_at": null,
+    "revoked_at": null,
+    "evidence_hash": null
+  }
+}

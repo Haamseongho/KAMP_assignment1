@@ -1,0 +1,16 @@
+{
+  "status": "unconfirmed",
+  "project_id": "215209147869625880",
+  "device": "cpu",
+  "gpu_allowed": false,
+  "paid_fallback_allowed": false,
+  "incremental_cost_cap": 0,
+  "provider_reference": null,
+  "reviewed_by": null,
+  "verified_at": null,
+  "expires_at": null,
+  "evidence_file": null,
+  "evidence_sha256": null,
+  "operations": {},
+  "reason": "Dashboard resource dashes, empty services, and presence of a CPU option do not establish free usage. No charge guarantee found in reviewed project/notice/FAQ pages."
+}

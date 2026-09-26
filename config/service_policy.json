@@ -1,0 +1,13 @@
+{
+  "schema_version": "moldguard-research-policy-v1",
+  "mode": "RESEARCH_ONLY",
+  "field_deployment_approved": false,
+  "defect_probability_enabled": false,
+  "external_queue_writes": false,
+  "allow_inspection_skip": false,
+  "allow_machine_control": false,
+  "allow_automatic_model_promotion": false,
+  "keep_all_required_inspections": true,
+  "unvalidated_machines": ["rg3"],
+  "score_target": "numeric_label_1_unconfirmed"
+}

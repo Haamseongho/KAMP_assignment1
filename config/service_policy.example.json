@@ -1,0 +1,128 @@
+{
+  "$comment": "신규 설계 예시. 실제 서비스 구현 및 스키마 검증 전 운영 config로 사용하지 않는다.",
+  "schema_version": "moldguard-service-policy-proposal-v1",
+  "default_mode": "RESEARCH_ONLY",
+  "implemented": false,
+  "field_deployment_approved": false,
+  "absolute_constraints": {
+    "keep_all_existing_required_inspections": true,
+    "allow_inspection_skip": false,
+    "allow_auto_pass_or_fail": false,
+    "allow_machine_control": false,
+    "allow_automatic_model_promotion": false,
+    "allow_external_raw_data_upload": false,
+    "allow_fabricated_operational_data": false
+  },
+  "score_contract": {
+    "legacy_field": "risk_score",
+    "display_name": "숫자 라벨 1 예측 점수",
+    "target_semantics": "numeric_label_1_unconfirmed",
+    "probability_display_requires_scope_calibration_approval": true,
+    "default_defect_probability": null,
+    "default_operational_priority": null,
+    "failure_score": null,
+    "interpret_zero_as_safe": false
+  },
+  "contract_items": [
+    "label_semantics",
+    "target_unit",
+    "product_shot_cavity_mapping",
+    "feature_availability",
+    "inspection_timing",
+    "raw_units",
+    "supplier_transform"
+  ],
+  "approval_authority": {
+    "client_supplied_approval_is_trusted": false,
+    "require_server_side_evidence_registry": true,
+    "approval_scope_keys": [
+      "data_source",
+      "machine",
+      "product_recipe_scope",
+      "feature_schema_hash",
+      "transform_hash",
+      "model_hash",
+      "policy_hash",
+      "contract_hash"
+    ],
+    "unset_required_acceptance_criterion_blocks_approval": true
+  },
+  "machines": {
+    "CN7": {
+      "evidence_status": "promising_research_only",
+      "operational_approved": false
+    },
+    "RG3": {
+      "evidence_status": "insufficient_predictive_evidence",
+      "operational_approved": false
+    }
+  },
+  "legacy_compatibility": {
+    "preserve_existing_split_and_metric_protocol": true,
+    "preserve_existing_action_precedence": true,
+    "known_current_routes": [
+      {
+        "condition": "machine == RG3",
+        "action": "usual_inspection_unvalidated_machine"
+      },
+      {
+        "condition": "machine == CN7 and ood_flag == true",
+        "action": "usual_inspection_ood"
+      },
+      {
+        "condition": "machine == CN7 and ood_flag == false and label_unconfirmed",
+        "action": "usual_inspection_label_unconfirmed"
+      }
+    ],
+    "collect_all_additional_blockers_in_reasons": true,
+    "input_failure": "explicit_error_no_success_artifact"
+  },
+  "advisory_requirements": [
+    "all_mandatory_data_contracts_confirmed",
+    "features_available_by_cutoff",
+    "scope_specific_unused_period_validation_accepted",
+    "valid_input_and_no_ood",
+    "healthy_and_current_model",
+    "active_nonexpired_nonrevoked_scope_approval",
+    "inspection_resource_and_mandatory_rule_contract_confirmed",
+    "all_required_acceptance_criteria_set"
+  ],
+  "queue": {
+    "write_to_external_queue_enabled": false,
+    "research_rank_is_operational_priority": false,
+    "fallback_keeps_original_queue_policy": true,
+    "future_arrivals_eligible": false,
+    "inspection_labels_used_for_scheduling": false,
+    "mandatory_rules_precede_ai": true,
+    "unvalidated_scope_forced_to_bottom": false,
+    "max_wait_seconds": null,
+    "machine_capacity_allocation": null,
+    "reference_policy": "existing_policy_to_be_confirmed"
+  },
+  "notifications": {
+    "real_push_enabled": false,
+    "unapproved_sop_is_template_only": true,
+    "deduplication_scope": null,
+    "cooldown_seconds": null,
+    "max_notifications_per_shift": null,
+    "emergency_plant_alarms_must_not_be_delayed": true
+  },
+  "experimental_metric_v2_proposal": {
+    "not_a_redefinition_of_legacy_results": true,
+    "top_k_rounding": "ceil(q*N); K=0 when N=0",
+    "tie_breaking": "stable_label_independent_hash_with_fixed_seed",
+    "tie_seed": 20260926,
+    "separate_scopes": [
+      "overall",
+      "machine",
+      "fold_machine"
+    ],
+    "require_tie_sensitivity_report": true
+  },
+  "blocked_extensions": [
+    "operational_queue_reordering",
+    "repeated_defect_prevention_claims",
+    "in_cycle_early_warning",
+    "physical_process_optimization"
+  ]
+}

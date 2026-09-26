@@ -1,6 +1,9 @@
 .venv/
 .venv-repro/
 .venv-compare/
+.venv-local/
+.venv-service/
+service_state/
 __pycache__/
 .pytest_cache/
 .ipynb_checkpoints/
