@@ -1,0 +1,99 @@
+{
+  "status": "passed_document_qa_only",
+  "pdf_sha256": "d7371ed70c57223b6ba522c847f26456af3a08be77d4a324bc7df9ab37c40f12",
+  "pages": 12,
+  "source_hashes_current": true,
+  "numeric_table_text_checks": "passed",
+  "bookmarks": 12,
+  "embedded_korean_fonts": [
+    "/AAAAAA+NanumGothic",
+    "/AAAAAB+NanumGothic"
+  ],
+  "page_checks": [
+    {
+      "page": 1,
+      "characters": 719,
+      "outside_safe_margin": 0
+    },
+    {
+      "page": 2,
+      "characters": 1087,
+      "outside_safe_margin": 0
+    },
+    {
+      "page": 3,
+      "characters": 890,
+      "outside_safe_margin": 0
+    },
+    {
+      "page": 4,
+      "characters": 964,
+      "outside_safe_margin": 0
+    },
+    {
+      "page": 5,
+      "characters": 928,
+      "outside_safe_margin": 0
+    },
+    {
+      "page": 6,
+      "characters": 876,
+      "outside_safe_margin": 0
+    },
+    {
+      "page": 7,
+      "characters": 1072,
+      "outside_safe_margin": 0
+    },
+    {
+      "page": 8,
+      "characters": 1010,
+      "outside_safe_margin": 0
+    },
+    {
+      "page": 9,
+      "characters": 1091,
+      "outside_safe_margin": 0
+    },
+    {
+      "page": 10,
+      "characters": 1109,
+      "outside_safe_margin": 0
+    },
+    {
+      "page": 11,
+      "characters": 961,
+      "outside_safe_margin": 0
+    },
+    {
+      "page": 12,
+      "characters": 1082,
+      "outside_safe_margin": 0
+    }
+  ],
+  "visual_review": {
+    "status": "passed",
+    "pages_inspected": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "method": "Poppler PNG at 110 dpi; all pages inspected via view_image after final layout change",
+    "observations": "Korean glyphs, tables, spacing, section transitions and page numbers readable; no clipping or overlap observed",
+    "renderer_warning": "Fontconfig default configuration unavailable; embedded Korean fonts rendered correctly"
+  },
+  "published_zip_unchanged": true,
+  "scientific_completion_proven": false,
+  "official_submission_ready": false,
+  "competition_website_submission": false,
+  "verifier_sha256": "3963cdec2834b6f215cf390c144809ebbc1270f17b95a5cd05a6f8535315202e"
+}

@@ -1,0 +1,23 @@
+{
+  "source_file": null,
+  "target_column": null,
+  "task_type": null,
+  "metric": null,
+  "split": {
+    "strategy": null,
+    "test_size": 0.2,
+    "seed": 20260921,
+    "group_column": null,
+    "time_column": null
+  },
+  "exclude_columns": [],
+  "submission": {
+    "reference_file": null,
+    "expected_columns": null,
+    "expected_rows": null,
+    "id_column": null,
+    "prediction_columns": null,
+    "numeric_columns": [],
+    "allowed_values": {}
+  }
+}

@@ -1,0 +1,22 @@
+logistic_ref seed=20260922 complete
+logistic_ref seed=20260923 complete
+logistic_ref seed=20260924 complete
+lgbm_shallow seed=20260922 complete
+lgbm_shallow seed=20260923 complete
+lgbm_shallow seed=20260924 complete
+lgbm_regularized seed=20260922 complete
+lgbm_regularized seed=20260923 complete
+lgbm_regularized seed=20260924 complete
+xgb_shallow seed=20260922 complete
+xgb_shallow seed=20260923 complete
+xgb_shallow seed=20260924 complete
+xgb_regularized seed=20260922 complete
+xgb_regularized seed=20260923 complete
+xgb_regularized seed=20260924 complete
+catboost_ref seed=20260922 complete
+catboost_ref seed=20260923 complete
+catboost_ref seed=20260924 complete
+catboost_regularized seed=20260922 complete
+catboost_regularized seed=20260923 complete
+catboost_regularized seed=20260924 complete
+complete: /Users/hamseongho/Documents/ChatGPT/KAMP/outputs/task01_compare_20260923_cpu_v3

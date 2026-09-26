@@ -1,0 +1,33 @@
+.venv/
+.venv-repro/
+.venv-compare/
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
+.DS_Store
+.chart-data-*/
+tmp/
+.env
+.env.*
+*.pem
+*.key
+*.hwp
+*.hwpx
+*.zip
+
+# 대회 원본·행 단위 분석 중간물·대용량 결과물은 저장소에 넣지 않습니다.
+# 검토 가능한 소형 집계 결과만 명시적으로 Git에 추가합니다.
+data/**
+!data/incoming/
+!data/incoming/.gitkeep
+!data/working/
+!data/working/.gitkeep
+reports/**
+!reports/.gitkeep
+outputs/**
+!outputs/.gitkeep
+config/task.json
+
+# Official contest data supplied in a root-level archive and extracted folder.
+1. *.zip
+1. */

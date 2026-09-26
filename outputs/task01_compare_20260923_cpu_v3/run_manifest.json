@@ -1,0 +1,91 @@
+{
+  "status": "complete_development_oof_not_independent_holdout",
+  "device": "cpu",
+  "started_at_utc": "2026-09-23T14:42:12.344376+00:00",
+  "finished_at_utc": "2026-09-23T14:42:28.560248+00:00",
+  "source_scope": "frozen development partition only; previous holdout not evaluated",
+  "frozen_manifest_sha256": "e26a82c58d0e86952b8557c2e8542f816f64db8ed49d15a4a450ef7a86b5efc7",
+  "source_files": {
+    "moldset_labeled_cn7.csv": {
+      "rows": 1211,
+      "sha256": "f870b0c259297f20d503f2e2739966553e5db5ef1deb0cc7513eefa4bbfa2753",
+      "max_abs_feature_mean": 4.630532492906094e-12,
+      "max_abs_varying_feature_std_minus_one": 3.3306690738754696e-16
+    },
+    "moldset_labeled_rg3.csv": {
+      "rows": 1182,
+      "sha256": "14aab21476eea02c823ccb00f82800040280d805dbce5a3eb7c11b176a9e5aa4",
+      "max_abs_feature_mean": 2.788886249218256e-12,
+      "max_abs_varying_feature_std_minus_one": 2.220446049250313e-16
+    }
+  },
+  "development_rows": 1913,
+  "development_groups": 957,
+  "development_label1": 33,
+  "folds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "seeds": [
+    20260922,
+    20260923,
+    20260924
+  ],
+  "models": [
+    "logistic_ref",
+    "lgbm_shallow",
+    "lgbm_regularized",
+    "xgb_shallow",
+    "xgb_regularized",
+    "catboost_ref",
+    "catboost_regularized"
+  ],
+  "feature_columns": [
+    "Injection_Time",
+    "Filling_Time",
+    "Plasticizing_Time",
+    "Cycle_Time",
+    "Clamp_Close_Time",
+    "Cushion_Position",
+    "Plasticizing_Position",
+    "Max_Injection_Speed",
+    "Max_Screw_RPM",
+    "Average_Screw_RPM",
+    "Max_Injection_Pressure",
+    "Max_Switch_Over_Pressure",
+    "Max_Back_Pressure",
+    "Average_Back_Pressure",
+    "Barrel_Temperature_1",
+    "Barrel_Temperature_2",
+    "Barrel_Temperature_3",
+    "Barrel_Temperature_4",
+    "Barrel_Temperature_5",
+    "Barrel_Temperature_6",
+    "Hopper_Temperature",
+    "Mold_Temperature_3",
+    "Mold_Temperature_4",
+    "machine_rg3"
+  ],
+  "exact_feature_group_leakage": 0,
+  "label_semantics_confirmed": false,
+  "early_prediction_evaluated": false,
+  "temporal_dl_eligible": false,
+  "upstream_scaling_and_temporal_independence_verified": false,
+  "gpu_receipt": null,
+  "gpu_runtime": null,
+  "caveat": "Post-selection development analysis; scores for numeric label 1, not validated defect probability. Class weighting distorts raw calibration. Small positive count, especially RG3. No claim of prospective generalization.",
+  "code_sha256": "c7cbec50691fde6f63e4aca2c2e62d0826f4a5be50e9691fede9c419d7ce4c4a",
+  "packages": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.2",
+    "scikit-learn": "1.5.1",
+    "catboost": "1.2.10",
+    "lightgbm": "4.6.0",
+    "xgboost": "3.0.5"
+  },
+  "python": "3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 08:22:19) [Clang 14.0.6 ]",
+  "platform": "macOS-26.5-arm64-arm-64bit"
+}

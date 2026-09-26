@@ -1,0 +1,138 @@
+{
+  "status": "created_text_and_geometry_checked_pending_visual_review",
+  "pdf": "KAMP_MoldGuard_검토보고서_20260922.pdf",
+  "pdf_sha256": "d7371ed70c57223b6ba522c847f26456af3a08be77d4a324bc7df9ab37c40f12",
+  "page_count": 12,
+  "source_sha256": {
+    "outputs/moldguard/data_audit.json": "2083acf622381bc01dbec59bfcc8c7cef3bbe77bbf392f55763aef1f0eec7505",
+    "outputs/moldguard/experiment.json": "af9cf102609f7576913327c22e0b300fdf7a3029bd5a5d1349db09f425c06234",
+    "outputs/moldguard/failure_analysis.json": "d5e80682ae0ac892891233490ef5cf5c261e8f2183049314e424acd6ae3408af",
+    "outputs/moldguard/holdout_diagnostics.csv": "790f9d4ee5708717e9ff5ef6c83f9560e2c2faf84cd99014edf28124bb6ed6f4",
+    "outputs/local_runs/20260922-share-final/run_manifest.json": "3a63b5dc165c355feca175627eccc41e5e7419bd2c44c971f10d24f38348e3a1",
+    "outputs/local_runs/20260922-share-final/split_manifest.csv": "e26a82c58d0e86952b8557c2e8542f816f64db8ed49d15a4a450ef7a86b5efc7",
+    "outputs/calibration-review-20260922/calibration_review.json": "7fd0183df19a2812981d376e16c25b430ab4cb441a0e16091c66cfa292a05545",
+    "outputs/calibration-review-20260922/conditional_errors.csv": "37adc724c3556262f4beb7a1d2372f71b9aea9e74c71ab3ec4bf31ee6e63e6ad",
+    "outputs/calibration-review-verification.json": "2ca6e79a00e0b7000f475a96557ef54fe3431067614ebf7f9be6bee217ad602e",
+    "moldguard.py": "2cf5fe87fe1f6caddf341b1bf5e7a4ee24f51140d5c5a0430e904f532a819cc3",
+    "analyze_moldguard.py": "06bab35ca9f9d749c316a3321bbb06b666ae3ddeea016a9afc0e6d6a519574ba",
+    "run_local.py": "c01ceae55f0f708f15a101dcaef00c3a6b4d5c77cda2aa19bdc8ff04b502ade2",
+    "calibration_diagnostics.py": "5ac5153b16c7e0ef98a660bf05f7973647f390030cd36f3fd418114f9a16ebb0",
+    "verify_calibration_review.py": "7b6be7bbd9c7eca9eecec5107156ae4955f19de2bbc4e6d45bbaa97298411594",
+    "requirements-model-lock.txt": "c3a256c549bf910d93b2f5c1c6e978b4b5d1b48c5f8bb8a751b1ace65d9efb04",
+    "docs/03_사출성형_검증보고서.md": "edd5e7050c7bd1cf74b333ed855cc1d55228f705d4fea18d428d383204e191e4",
+    "docs/04_추가데이터_요청명세.md": "659f4f6a41a38f34ef585bba95d0b484c88612e25199b2cfeda32befe1edb04f",
+    "docs/05_라벨_의미_검증.md": "37a890d3ab8c33514f661dba61ea848a4ee9a38acf7c72f161ba04f823c7319e",
+    "docs/07_확률보정_및_조건부_오류분석.md": "03102ff5a0fb5a2b7e611d0cb7f14bc28cfd1ae902a2cef92bb059781e16e2b8",
+    "제6회 K-인공지능 제조데이터 분석 경진대회 과제공개(일반국민,대학(원)생).hwpx": "cfea6f3cf97c990d1dce2f7f7515c26976bcbfaf331f8fbd5d961f0e0322bb62",
+    "경진대회 결과보고서 양식_일반국민,대학(원)생 부문.hwpx": "9a781cc1963000193199efd88ad92ac72eed875438b4e2727422aa01b12adedb"
+  },
+  "builder_sha256": "7bf4958d1e435ca49545f0e7cb56e39ae6065bf3ce4031444e7c82d07921818e",
+  "content_as_of": "2026-09-22",
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "document_packages": {
+    "reportlab": "4.4.9",
+    "pypdf": "6.10.0",
+    "pillow": "12.3.0"
+  },
+  "deterministic_pdf_metadata": "ReportLab invariant=1 uses a fixed metadata timestamp; cover date is the evidence date",
+  "font_sha256": "48a28e97b34fc8e5b157657633670cd1b7de126cfc414da65ce9c3d5bc8be733",
+  "font_name": "NanumGothic.ttf",
+  "layout": [
+    {
+      "page": 1,
+      "title": "MOLDGUARD / REVIEW REPORT",
+      "used_points": 524.9,
+      "available_points": 712.89
+    },
+    {
+      "page": 2,
+      "title": "제1장. 데이터 이해 및 진단 [15점]",
+      "used_points": 558.1,
+      "available_points": 712.89
+    },
+    {
+      "page": 3,
+      "title": "제1장. 데이터 이해 및 진단 / 계속",
+      "used_points": 528.2,
+      "available_points": 712.89
+    },
+    {
+      "page": 4,
+      "title": "제2장. AI 예측모델 개발 및 성능평가 [40점]",
+      "used_points": 549.7,
+      "available_points": 712.89
+    },
+    {
+      "page": 5,
+      "title": "제2장. 개발 검증과 모델 선정 / 계속",
+      "used_points": 599.6,
+      "available_points": 712.89
+    },
+    {
+      "page": 6,
+      "title": "제2장. 선정 모델의 홀드아웃 결과 / 계속",
+      "used_points": 546.7,
+      "available_points": 712.89
+    },
+    {
+      "page": 7,
+      "title": "제3장. 영향요인 및 오류분석 [15점]",
+      "used_points": 608.6,
+      "available_points": 712.89
+    },
+    {
+      "page": 8,
+      "title": "제4장. 현장 활용방안 [10점]",
+      "used_points": 577.7,
+      "available_points": 712.89
+    },
+    {
+      "page": 9,
+      "title": "제5장. 창의성 및 차별성 [10점]",
+      "used_points": 529.6,
+      "available_points": 712.89
+    },
+    {
+      "page": 10,
+      "title": "제6장. 코드 구성 및 재현성 [10점]",
+      "used_points": 518.7,
+      "available_points": 712.89
+    },
+    {
+      "page": 11,
+      "title": "부록 A. 완료 수준과 다음 검증 게이트",
+      "used_points": 544.5,
+      "available_points": 712.89
+    },
+    {
+      "page": 12,
+      "title": "부록 B. 출처와 추적 가능성",
+      "used_points": 467.8,
+      "available_points": 712.89
+    }
+  ],
+  "required_text_checks": [
+    "0.1154",
+    "0.2779",
+    "0.0192",
+    "0/5",
+    "35,941",
+    "19,607",
+    "15,632",
+    "37/37",
+    "18개",
+    "미확정",
+    "후속",
+    "설문",
+    "최종 제출 아님"
+  ],
+  "derived_holdout_metrics": {
+    "precision": 0.0423728813559322,
+    "recall": 0.5555555555555556,
+    "f1": 0.07874015748031496
+  },
+  "official_template_filled": false,
+  "field_deployment_approved": false,
+  "competition_website_submission": false,
+  "notion_published": false
+}
