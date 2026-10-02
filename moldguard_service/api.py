@@ -16,15 +16,26 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class Application:
     def __init__(self, data_dir=None, result_dir=None, comparison_dir=None, registry_dir=None,
-                 policy_path=None, acceptance_path=None):
+                 policy_path=None, acceptance_path=None, upgrade_run_dir=None):
         self.data_dir = data_dir
         self.result_dir = Path(result_dir or ROOT / 'outputs/moldguard')
         self.comparison_dir = Path(comparison_dir or ROOT / 'outputs/task01_compare_20260923_cpu_v3')
         self.registry = ContractRegistry(registry_dir or ROOT / 'service_state/contracts')
         self.policy_path = Path(policy_path or ROOT / 'config/service_policy.json')
         self.acceptance_path = Path(acceptance_path or ROOT / 'config/acceptance_criteria.example.json')
+        self.upgrade_run_dir = upgrade_run_dir
+        self.upgrade_service = None
 
     def get(self, path, query):
+        if path in ('/api/v1/upgrade/readiness', '/api/v1/upgrade/predictions'):
+            if self.upgrade_run_dir is None:
+                return {'status': 'unavailable', 'reason': 'No --upgrade-run-dir supplied', 'mode': 'RESEARCH_ONLY'}
+            if self.upgrade_service is None:
+                from upgrade_runtime import UpgradeService
+                self.upgrade_service = UpgradeService(self.upgrade_run_dir, self.data_dir)
+            if path.endswith('/readiness'):
+                return self.upgrade_service.readiness()
+            return self.upgrade_service.get(query)
         policy = json.loads(self.policy_path.read_text())
         policy_hash = validate_policy(policy)
         adapter = LegacyAdapter(self.data_dir, self.result_dir, self.comparison_dir)
@@ -95,9 +106,11 @@ def main():
     parser.add_argument('--result-dir', type=Path)
     parser.add_argument('--comparison-dir', type=Path)
     parser.add_argument('--registry-dir', type=Path)
+    parser.add_argument('--upgrade-run-dir', type=Path, help='Optional verified CPU research candidate; does not replace legacy results')
     parser.add_argument('--port', type=int, default=8765)
     args = parser.parse_args()
-    app = Application(args.data_dir, args.result_dir, args.comparison_dir, args.registry_dir)
+    app = Application(args.data_dir, args.result_dir, args.comparison_dir, args.registry_dir,
+                      upgrade_run_dir=args.upgrade_run_dir)
     server = ThreadingHTTPServer(('127.0.0.1', args.port), handler_for(app))
     print(f'MoldGuard RESEARCH_ONLY http://127.0.0.1:{server.server_port}', flush=True)
     try:
