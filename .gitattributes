@@ -1,0 +1,4 @@
+# Keep published evidence byte-identical on Windows and Unix checkouts.
+reports/gpu_pc_20261004/*.csv text eol=lf
+reports/gpu_pc_20261004/*.json text eol=lf
+reports/gpu_pc_20261004/*.png binary

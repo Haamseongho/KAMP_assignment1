@@ -1,0 +1,12 @@
+{
+  "status": "exploratory_balanced_budget_found",
+  "recommended_fraction": 0.075,
+  "policy": "P_MACHINE",
+  "basis": "retain reference K192 positive recovery while reducing false positives; both GPU runs and their three-seed means",
+  "lowest_observed_tp": 13,
+  "lowest_tp_under_boundary_tie_permutations": 13,
+  "independent_future_validation": false,
+  "field_approved": false,
+  "all_33_recovered": false,
+  "new_ground_truth_positives_created": 0
+}

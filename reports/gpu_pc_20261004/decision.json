@@ -1,0 +1,38 @@
+{
+  "status": "measured_development_improvement_with_remaining_requirements",
+  "candidate": "fixed_local_logistic_c1__rg3_cat_pair_rank_mean",
+  "found_by_seed": {
+    "20260922": 16,
+    "20260923": 17,
+    "20260924": 16
+  },
+  "same_k192_all_seed_improvement_over_reference": true,
+  "all_seeds_at_least_17": false,
+  "all_seeds_33_at_k192": false,
+  "three_seed_mean_ensemble_found_at_k192": 16,
+  "candidate_selection": "exploratory after inspecting development OOF; not nested procedure adoption",
+  "conditional_bootstrap_caution": "fixed OOF and post-hoc candidate; does not account for search or future generalization",
+  "independent_new_period_validation": false,
+  "field_approved": false,
+  "ground_truth_positives_increased": false,
+  "remaining": [
+    "stable 17/33 at K192",
+    "33/33 with acceptable precision and F1",
+    "new independent labels",
+    "shot/product/cavity metadata",
+    "label semantics"
+  ],
+  "final_research_policy": {
+    "status": "exploratory_balanced_budget_found",
+    "recommended_fraction": 0.075,
+    "policy": "P_MACHINE",
+    "basis": "retain reference K192 positive recovery while reducing false positives; both GPU runs and their three-seed means",
+    "lowest_observed_tp": 13,
+    "lowest_tp_under_boundary_tie_permutations": 13,
+    "independent_future_validation": false,
+    "field_approved": false,
+    "all_33_recovered": false,
+    "new_ground_truth_positives_created": 0
+  },
+  "final_scope": "user-prioritized false-positive/precision balance; K144 policy, exploratory development evidence"
+}

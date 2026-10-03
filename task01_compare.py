@@ -15,6 +15,7 @@ import json
 import platform
 import subprocess
 import sys
+import time
 import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
@@ -324,8 +325,44 @@ def main() -> None:
                         help="I control this NVIDIA PC and acknowledge its GPU power/usage costs")
     parser.add_argument('--data-dir', type=Path, default=mg.DATA_DIR)
     parser.add_argument('--split-dir', type=Path, default=cd.FROZEN)
+    parser.add_argument('--max-seconds', type=int,
+                        help='Hard wall-clock limit; stops a separate fit process on expiry')
     args = parser.parse_args()
     output = args.output_dir.resolve()
+    if args.max_seconds is not None:
+        if args.max_seconds <= 0 or output.exists():
+            parser.error('--max-seconds must be positive and output must not exist')
+        command = [sys.executable, '-u', str(Path(__file__).resolve()),
+                   '--device', args.device, '--data-dir', str(args.data_dir),
+                   '--split-dir', str(args.split_dir), '--output-dir', str(output)]
+        if args.local_gpu_ack:
+            command.append('--local-gpu-ack')
+        if args.task04_receipt is not None:
+            command.extend(['--task04-receipt', str(args.task04_receipt)])
+        started = time.monotonic()
+        watchdog = {'max_seconds': args.max_seconds, 'command': command,
+                    'status': 'running'}
+        try:
+            completed = subprocess.run(command, timeout=args.max_seconds, check=False)
+            watchdog.update(status='passed' if completed.returncode == 0 else 'failed',
+                            exit_code=completed.returncode)
+        except subprocess.TimeoutExpired as error:
+            watchdog.update(status='timed_out_process_stopped', exit_code=124)
+            receipt_path = output / 'execution.json'
+            if receipt_path.is_file():
+                receipt = json.loads(receipt_path.read_text(encoding='utf-8'))
+                receipt.update(status='failed', exit_code=124,
+                               error=f'Hard time limit {args.max_seconds}s exceeded; fit process stopped',
+                               finished_at=datetime.now(timezone.utc).isoformat())
+                write_json(receipt_path, receipt)
+            raise RuntimeError('Comparison time limit exceeded; fit process stopped') from error
+        finally:
+            watchdog['elapsed_seconds'] = time.monotonic() - started
+            if output.is_dir():
+                write_json(output / 'watchdog.json', watchdog)
+        if completed.returncode:
+            raise SystemExit(completed.returncode)
+        return
     run(args.device, output, args.task04_receipt, args.data_dir, args.split_dir,
         local_gpu_ack=args.local_gpu_ack)
 

@@ -1,0 +1,10 @@
+{
+  "numeric_positives": 33,
+  "same_input_opposite_label_pairs": 29,
+  "unavoidable_false_positives_at_100pct_recall_for_feature_only_rule": 29,
+  "precision_upper_bound_at_full_recall_even_with_oracle_group_detection": 0.532258064516129,
+  "f1_upper_bound_at_full_recall_even_with_oracle_group_detection": 0.6947368421052632,
+  "precision_upper_bound_at_k192": 0.171875,
+  "f1_upper_bound_at_k192": 0.29333333333333333,
+  "interpretation": "identifiability bounds, not an achieved model score"
+}

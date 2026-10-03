@@ -157,10 +157,15 @@ def rg3_group_row(base: pd.DataFrame, scores: np.ndarray, model: str, seed: int)
     groups = section.groupby("feature_group").agg(
         rows=("label_value", "size"), event=("label_value", "max"),
         selected_rows=("selected", "sum"), score=("score", "first"))
-    if section.groupby("feature_group").score.nunique().gt(1).any():
+    spread = section.groupby("feature_group").score.agg(["min", "max"])
+    maximum_spread = float((spread['max'] - spread['min']).max())
+    # Windows BLAS can differ by one rounding bit for the same dot product.
+    # This tolerance is far below a meaningful ranking difference.
+    if maximum_spread > 1e-12:
         raise ValueError("The same RG3 feature group received different scores")
     positive = groups.event.eq(1)
     return {"model": model, "seed": seed, "groups": len(groups),
+            "max_identical_input_score_spread": maximum_spread,
             "positive_groups": int(positive.sum()),
             "groups_with_any_selected_row": int(groups.selected_rows.gt(0).sum()),
             "positive_groups_with_any_selected_row": int((positive & groups.selected_rows.gt(0)).sum()),

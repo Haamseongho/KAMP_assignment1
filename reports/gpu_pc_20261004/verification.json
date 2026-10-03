@@ -1,0 +1,111 @@
+{
+  "nested_verify": {
+    "status": "passed",
+    "source_and_split_hashes_verified": true,
+    "inner_oof_prediction_rows_verified": 0,
+    "oof_rows_verified": 126258,
+    "fit_rows_verified": 1980,
+    "gpu_fits_verified": 1080,
+    "metric_rows_independently_recomputed": 1782,
+    "threshold_decision_rows_verified": 126258,
+    "inner_group_and_outer_training_membership_verified": true,
+    "scope": "saved artifacts, OOF identity, grouped membership, fit/backend ledger, inner selection, outer threshold decisions, independently recomputed metrics",
+    "limitations": [
+      "does not replay every fit",
+      "inner OOF audited when saved; earlier runs only preserve inner summaries",
+      "development data previously inspected",
+      "no new-period independent labeled test",
+      "physical label meaning unknown"
+    ]
+  },
+  "refinement_verify": {
+    "status": "passed",
+    "source_and_split_hashes_verified": true,
+    "inner_oof_prediction_rows_verified": 206604,
+    "oof_rows_verified": 80346,
+    "fit_rows_verified": 1020,
+    "gpu_fits_verified": 840,
+    "metric_rows_independently_recomputed": 1134,
+    "threshold_decision_rows_verified": 80346,
+    "inner_group_and_outer_training_membership_verified": true,
+    "scope": "saved artifacts, OOF identity, grouped membership, fit/backend ledger, inner selection, outer threshold decisions, independently recomputed metrics",
+    "limitations": [
+      "does not replay every fit",
+      "inner OOF audited when saved; earlier runs only preserve inner summaries",
+      "development data previously inspected",
+      "no new-period independent labeled test",
+      "physical label meaning unknown"
+    ]
+  },
+  "bundle": {
+    "status": "passed_native_roundtrip_and_queue_coverage",
+    "gpu_fits": 6,
+    "queue_rows": 71180,
+    "queue_duplicate_ids": 0,
+    "queue_score_finite": true,
+    "original_development_positives": 33,
+    "new_ground_truth_positives_created": 0,
+    "scope": "artifact inference parity and queue completeness, not independent performance"
+  },
+  "gpu_comparison": {
+    "status": "passed",
+    "development_rows": 1913,
+    "development_groups": 957,
+    "oof_rows": 22956,
+    "metric_rows_recomputed": 36,
+    "scope": "artifact integrity + OOF identity/coverage + aggregate metrics; not prospective performance"
+  },
+  "calibrated": {
+    "status": "passed_source_inner_oof_verification_and_sigmoid_replay",
+    "calibrator_fits": 30,
+    "oof_rows": 5739,
+    "max_coefficient_replay_error": 0.0,
+    "training_outer_group_overlap": 0,
+    "independent_future_validation": false
+  },
+  "balance": {
+    "status": "passed_source_hashes_and_independent_confusion_counts",
+    "metric_rows": 216,
+    "oof_mean_rows": 7652,
+    "boundary_tie_bounds_computed": true,
+    "source_oof_sha256": {
+      "cpu_reference": "bd6f2e3d154218fb457c0d3b5b26a2b54711e91c9783e5199899ef98e0e25563",
+      "gpu_pair_original": "27fd562531b551f7b333970bbd60c5a4e5f64aba0190762020079817e6ad378c",
+      "gpu_pair_repeat": "03712e38e0ad5e0e96a3e8b43b25f8f3a7d8676417d12e2188d91c40eb9926a2",
+      "inner_calibrated_pair": "8ae8cd3768cd4bb78790b0f27d523e70ff632fa5d3d17d92a09f92424fc428fb"
+    },
+    "scope": "fixed verified OOF and preset budget arithmetic, no independent performance validation"
+  },
+  "balanced_queue": {
+    "status": "passed_existing_native_bundle_hashes_and_queue_coverage",
+    "new_gpu_fits": 0,
+    "queue_rows": 71180,
+    "queue_duplicate_ids": 0,
+    "queue_score_finite": true,
+    "inspection_fraction": 0.075,
+    "selected_rows": 5339,
+    "selected_rows_by_machine": {
+      "cn7": 2643,
+      "rg3": 2696
+    },
+    "source_bundle_manifest_sha256": "0fb84d90f42fbd231943543afe94de3ca72e6f791db630628cbdc06faa6be8d9",
+    "independent_future_validation": false,
+    "unlabeled_positive_count": "unknown_without_labels",
+    "field_approved": false
+  },
+  "source_run_manifests_sha256": {
+    "gpu": "478ea9f75d29b5b2972f121a2386c0a6d3c7c94e7a9af84b366a2becf4a08c07",
+    "nested": "c5d3527854c3019edf776c34aba5bb6b959da26b39bca3f1023a48fc30e357ad",
+    "refinement": "d97c0b8d7be298bf9eeef1110a284fb239dde3eafa42dfcf538b1d53aed51c98"
+  },
+  "source_plans_sha256": {
+    "nested": "9088d09c13641d755f9a3d491e74a48f1ecdb13115bc1ea4689d05265033631e",
+    "ensemble": "7a7d08127256b074d03e809ca8f8b1e8f922b2a3da5fd5bc6a3c5f02941b72e7",
+    "refinement": "a1a9b5bebd5c2be5608e78fcd6e0178013c44f16fd153574cd9a065f4a79c90e",
+    "refinement_ensemble": "3d2460314f89373b4d4c17645b967fb0d89aa58613a9329fd2c83d8cb96d2e8d",
+    "calibrated": "b90867689b61110eb29511b049a11be1cac2e097061b754f478753086a9e16ae",
+    "balance": "f19eb5f201eba38f9c955ebac45a313290d42a3827486bfce52d5cb05a4623b0"
+  },
+  "official_data_gpu_fits_total": 1986,
+  "independent_new_period_performance_validation": false
+}

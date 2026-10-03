@@ -1,0 +1,19 @@
+{
+  "balanced_decision.json": "0a58bbdbefbe69b32f9cea5f05f062ca00b942d33c1cdf1a43fcd89003fadd22",
+  "balance_tradeoff.png": "17baee9574a950e34f0761ad6c2bfac26e03713ffdcf2d4e6eec1f522142113c",
+  "budget_comparison.csv": "a312c6c0762126c58b686521e6688ce6e0d26d1694348c52603682d9a32b109e",
+  "calibrated_at_k192.csv": "be98c3381a6661ef0645355ab05a588fd86602c910ed230122e80a1a7fa56e70",
+  "comparison_at_k192.csv": "155bc07b3a8d68d943c56cdf16eea1e9bf8d14a92ace5976b4c024c5d325a456",
+  "conditional_group_bootstrap.csv": "4a44980f7f18fe0dd349de0a4a120e2079ad814e9e462f06aa104d1d20a1ee87",
+  "decision.json": "6e73e21141b67d0012e9de385d9c48a4b0f80320f3c9dc8f0cccc4d166d7d195",
+  "full_recall_tradeoff.csv": "14c2273232551f67b024ad84519c36e73a72d212f9eef7aa747911cfd2816f86",
+  "identifiability_bounds.json": "8e5f62de7e64149e713885403511d3e397438c33a8018c8e617c720320c766fb",
+  "inspection_tradeoff.csv": "b2cc0d3f5e3547c3c20df01c3f2a2033fc3dc7bf32b5b7ba14d7b534d37fe3bb",
+  "inspection_tradeoff.png": "4af5ce8be8d5934e2c345f9a2d7aaf46b9ccd3005c6b638bde1393a902765a80",
+  "recommended_policy.csv": "e2b8fda989dc17f71e0bacb02ec3b88406a74ceb00a8802dda81a3a2079a5833",
+  "refinement_at_k192.csv": "eec8ea9d15aa1cc8511b4c54e10988e6c87d705d707e701396491afdf6a34d5c",
+  "refinement_combinations_at_k192.csv": "88e5b8abca454dd0d085d27ab67000c29a48f2e1498c758a5720dbd8748f3845",
+  "three_seed_mean_budgets.csv": "a2a1257550235e1ae62a3cec1797d4e5406b508707862ac4bc1531fbb0a1251b",
+  "three_seed_mean_candidate.csv": "ccaa9c706d1ce0fba1ea3ce31a70821fbc5d75cf5c8306cd9b88cdccb9ac540a",
+  "verification.json": "04adcdcafb0ed58c7d412b712efa73b0a7f7231513d4f396685dfa3a1655422a"
+}

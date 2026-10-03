@@ -18,6 +18,30 @@ FEATURES = ('Injection_Time Filling_Time Plasticizing_Time Cycle_Time Clamp_Clos
 COLUMNS = ['machine', 'source_row_id', 'label_value', 'feature_group', 'partition', 'oof_validation_fold']
 
 
+def align_group_fingerprints(data, table):
+    """Restore reference group names only after proving identical group membership.
+
+    CSV floating-point parsing can change a pandas fingerprint across platforms.
+    A reference name is never allowed to split or merge measurement groups.
+    """
+    keys = ['machine', 'source_row_id']
+    local = data[['machine', mg.ID_COL, mg.TARGET, 'feature_group']].rename(
+        columns={mg.ID_COL: 'source_row_id', mg.TARGET: 'label_value'})
+    if table.duplicated(keys).any() or local.duplicated(keys).any() or len(table) != len(local):
+        raise ValueError('Reference split identifiers are missing or duplicated')
+    paired = local.merge(table[keys + ['label_value', 'feature_group']], on=keys,
+                         how='left', validate='one_to_one', suffixes=('_local', '_reference'), sort=False)
+    if (paired.feature_group_reference.isna().any()
+            or paired.label_value_local.ne(paired.label_value_reference).any()):
+        raise ValueError('Reference split source IDs or labels differ')
+    if (paired.groupby('feature_group_local').feature_group_reference.nunique().max() != 1
+            or paired.groupby('feature_group_reference').feature_group_local.nunique().max() != 1):
+        raise ValueError('Reference split merges or splits exact-measurement groups')
+    result = data.copy()
+    result['feature_group'] = paired.feature_group_reference.to_numpy()
+    return result
+
+
 def load_inputs(data_dir):
     if data_dir is None or not Path(data_dir).is_dir():
         raise FileNotFoundError('Official CSV directory missing; pass --data-dir')
@@ -63,16 +87,27 @@ def validate_membership(data, table):
 
 def generate(data_dir, output, reference=None):
     data, features, provenance = load_inputs(data_dir)
+    changed_fingerprints = 0
+    if reference is not None:
+        reference_data, _, _ = load_validated(data_dir, reference)
+        changed_fingerprints = int(data.feature_group.ne(reference_data.feature_group).sum())
+        data['feature_group'] = reference_data.feature_group.to_numpy()
     table = build_table(data)
     validate_membership(data, table)
-    table.to_csv(Path(output) / 'split_manifest.csv', index=False)
+    # The frozen manifest was written with LF on macOS. Preserve its exact
+    # bytes on Windows as well; platform CRLF must not change the split hash.
+    table.to_csv(Path(output) / 'split_manifest.csv', index=False, lineterminator='\n')
     split = {'seed': mg.SEED, 'source_files': provenance, 'feature_columns': features,
              'group_rule': 'machine + all 24 original features; pandas row hash',
              'rows_by_partition': {str(k): int(v) for k, v in table.partition.value_counts().items()},
              'cross_partition_feature_groups': 0}
     result = {'schema_version': 'moldguard-split-v1', 'status': 'complete', 'split': split,
               'split_sha256': digest(Path(output) / 'split_manifest.csv'),
-              'reference_comparison': {'status': 'not_provided_new_split'}}
+              'reference_comparison': {'status': 'not_provided_new_split'},
+              'reference_group_name_alignment': {
+                  'renamed_rows': changed_fingerprints,
+                  'group_membership_bijection_verified': reference is not None,
+                  'source_ids_and_labels_unchanged': True}}
     if reference is not None:
         load_validated(data_dir, reference)
         old = Path(reference) / 'split_manifest.csv'
@@ -102,6 +137,7 @@ def load_validated(data_dir, split_dir):
     if expected_hash and expected_hash != digest(split_dir / 'split_manifest.csv'):
         raise ValueError('Split manifest hash mismatch')
     table = pd.read_csv(split_dir / 'split_manifest.csv')
+    data = align_group_fingerprints(data, table)
     validate_membership(data, table)
     merged = data.merge(table.drop(columns=['label_value', 'feature_group']).rename(columns={'source_row_id': mg.ID_COL}),
                         on=['machine', mg.ID_COL], validate='one_to_one', sort=False)
