@@ -1,4 +1,4 @@
-"""Verify completed CPU comparison outputs against official inputs and the split."""
+"""Verify completed CPU/GPU comparison outputs against official inputs and the split."""
 import argparse
 import json
 from pathlib import Path
