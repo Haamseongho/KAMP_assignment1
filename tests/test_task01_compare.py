@@ -2,6 +2,8 @@
 
 import json
 from pathlib import Path
+from types import SimpleNamespace
+import zipfile
 
 import numpy as np
 import pytest
@@ -53,6 +55,50 @@ def test_gpu_refuses_corrupt_zip_even_when_hash_matches(tmp_path: Path):
                                    "verified_by": "test"}))
     with pytest.raises(ValueError, match="GPU_BLOCKED"):
         comparison.check_gpu_receipt(receipt)
+
+
+def test_local_gpu_opt_in_is_explicit_and_separate_from_legacy_receipt(tmp_path: Path):
+    with pytest.raises(ValueError, match="GPU_BLOCKED"):
+        comparison.check_gpu_authorization(None, False)
+    local, receipt = comparison.check_gpu_authorization(None, True)
+    assert local == {"mode": "user_controlled_local_gpu", "cost_and_power_acknowledged": True}
+    assert receipt is None
+    with pytest.raises(ValueError, match="choose"):
+        comparison.check_gpu_authorization(tmp_path / "receipt.json", True)
+
+    archive = tmp_path / "task04.zip"
+    with zipfile.ZipFile(archive, "w") as bundle:
+        bundle.writestr("result.txt", "TEST_ONLY")
+    record = tmp_path / "receipt.json"
+    record.write_text(json.dumps({"task04_results_recovered": True,
+                                  "task04_zip": str(archive), "sha256": comparison.mg.sha256(archive),
+                                  "verified_at_utc": "2026-09-23T00:00:00Z", "verified_by": "test"}))
+    legacy, verified = comparison.check_gpu_authorization(record, False)
+    assert legacy["mode"] == "legacy_task04_receipt"
+    assert verified["sha256"] == comparison.mg.sha256(archive)
+
+
+def test_gpu_runtime_accepts_windows_nvidia_but_not_missing_utility(monkeypatch):
+    monkeypatch.setattr(comparison.platform, "system", lambda: "Windows")
+    monkeypatch.setattr(comparison.subprocess, "run", lambda *args, **kwargs: SimpleNamespace(
+        returncode=0, stdout="NVIDIA Test GPU, 999.0, 8192 MiB\n"))
+    runtime = comparison.check_gpu_runtime()
+    assert runtime["platform"] == "Windows"
+    assert "not_proof_of_gpu_training" in runtime["scope"]
+    monkeypatch.setattr(comparison.subprocess, "run", lambda *args, **kwargs: (_ for _ in ()).throw(FileNotFoundError()))
+    with pytest.raises(RuntimeError, match="GPU_BLOCKED"):
+        comparison.check_gpu_runtime()
+
+
+def test_gpu_backend_check_rejects_xgboost_cpu_fallback():
+    def xgb_model(device):
+        return SimpleNamespace(get_booster=lambda: SimpleNamespace(save_config=lambda: json.dumps({
+            "learner": {"generic_param": {"device": device}}})))
+    assert comparison.check_fitted_gpu_backend(xgb_model("cuda:0"), "xgb_shallow") == "cuda:0"
+    with pytest.raises(RuntimeError, match="fitted on cpu"):
+        comparison.check_fitted_gpu_backend(xgb_model("cpu"), "xgb_shallow")
+    catboost = SimpleNamespace(get_all_params=lambda: {"task_type": "GPU"})
+    assert comparison.check_fitted_gpu_backend(catboost, "catboost_ref") == "GPU"
 
 
 def test_unweighted_diagnostic_score_range_and_finite():

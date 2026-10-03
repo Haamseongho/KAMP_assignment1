@@ -9,6 +9,14 @@ import sys
 from research_runtime import ROOT, digest, execution_record, write_json
 
 
+def source_paths(root=ROOT):
+    """Files needed for the isolated reproduction and its full test collection."""
+    paths = [*root.glob('*.py'), *root.glob('requirements*.txt'), root / 'pytest.ini']
+    for folder in ('tests', 'config', 'moldguard_service', 'paas_cpu'):
+        paths.extend(p for p in (root / folder).rglob('*') if p.is_file() and '__pycache__' not in p.parts)
+    return paths
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--data-dir', type=Path, required=True)
@@ -19,9 +27,7 @@ def main():
     with execution_record(output) as receipt:
         checkout = output / 'checkout'
         checkout.mkdir()
-        paths = [*ROOT.glob('*.py'), *ROOT.glob('requirements*.txt'), ROOT / 'pytest.ini']
-        for folder in ('tests', 'config', 'moldguard_service'):
-            paths.extend(p for p in (ROOT / folder).rglob('*') if p.is_file() and '__pycache__' not in p.parts)
+        paths = source_paths()
         receipt['copied_code_hashes'] = {}
         for path in paths:
             target = checkout / path.relative_to(ROOT)

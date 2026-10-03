@@ -25,8 +25,8 @@ def combine(cpu_dir: Path, gpu_dir: Path, output: Path) -> None:
     gpu_manifest = json.loads((gpu_dir / "run_manifest.json").read_text())
     if cpu_manifest["device"] != "cpu" or gpu_manifest["device"] != "gpu":
         raise ValueError("Need completed CPU and GPU comparison runs")
-    if gpu_manifest.get("gpu_receipt") is None:
-        raise ValueError("GPU run has no verified task-04 recovery receipt")
+    if gpu_manifest.get("gpu_receipt") is None and (gpu_manifest.get("gpu_authorization") or {}).get("mode") != "user_controlled_local_gpu":
+        raise ValueError("GPU run has no local GPU acknowledgement or verified task-04 recovery receipt")
     for key in ("frozen_manifest_sha256", "seeds", "development_rows", "development_groups"):
         if cpu_manifest[key] != gpu_manifest[key]:
             raise ValueError(f"CPU/GPU comparison basis differs: {key}")
