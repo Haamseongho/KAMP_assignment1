@@ -31,6 +31,10 @@ outputs/**
 !outputs/.gitkeep
 config/task.json
 
+# 내부 Notion 참조·팀 의사결정 작업 노트는 로컬에만 보관합니다.
+KAMP_Analysis_and_Done_Matrix_20261003.md
+KAMP_Codex_Master_Prompt_dev_haams_20261003.md
+
 # Official contest data supplied in a root-level archive and extracted folder.
 1. *.zip
 1. */
