@@ -1,0 +1,11 @@
+stage,kind,fits
+balanced_check,cat,2
+full,cpu,1
+full,rank,3
+inner,cat,432
+inner,rank,108
+outer,cat,120
+outer,cpu,5
+outer,rank,30
+sensitivity,cat,12
+legacy_layout_reproduction,cat,30

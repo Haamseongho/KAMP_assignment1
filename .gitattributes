@@ -2,3 +2,5 @@
 reports/gpu_pc_20261004/*.csv text eol=lf
 reports/gpu_pc_20261004/*.json text eol=lf
 reports/gpu_pc_20261004/*.png binary
+# Audit exports retain their exact bytes, including frozen plan hashes.
+reports/precision_frontier_*/* -text whitespace=trailing-space,space-before-tab,cr-at-eol

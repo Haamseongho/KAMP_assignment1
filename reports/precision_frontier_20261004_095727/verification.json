@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "count": 2964,
+  "gpu_fits": 737,
+  "main_study_gpu_fits": 707,
+  "layout_audit_gpu_fits": 30,
+  "cpu_fits": 6,
+  "outer_prediction_rows": 97563,
+  "inner_prediction_rows": 141900,
+  "metric_rows": 1368,
+  "method": "separate process; pandas sorting/rank and sklearn confusion/metrics, no production select/count import",
+  "limits": "does not establish source normalization provenance, physical-label meaning or prospective generalization"
+}

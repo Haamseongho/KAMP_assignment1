@@ -1,0 +1,25 @@
+component,seed,machine,scope,brier,log_loss
+historical_cpu,20260922,cn7,"uncalibrated probability output, numeric row label",0.0831290316727353,0.2728941175714301
+historical_cpu,20260922,rg3,"uncalibrated probability output, numeric row label",0.24055273391457987,0.7002417694411186
+historical_cpu,20260923,cn7,"uncalibrated probability output, numeric row label",0.0831290316727353,0.2728941175714301
+historical_cpu,20260923,rg3,"uncalibrated probability output, numeric row label",0.24055273391457987,0.7002417694411186
+historical_cpu,20260924,cn7,"uncalibrated probability output, numeric row label",0.0831290316727353,0.2728941175714301
+historical_cpu,20260924,rg3,"uncalibrated probability output, numeric row label",0.24055273391457987,0.7002417694411186
+historical_cpu,ensemble,cn7,"uncalibrated probability output, numeric row label",0.0831290316727353,0.27289411757143006
+historical_cpu,ensemble,rg3,"uncalibrated probability output, numeric row label",0.24055273391457987,0.7002417694411186
+pair_a1,20260922,cn7,"uncalibrated probability output, numeric row label",0.04156658491087098,0.13746672311556746
+pair_a1,20260923,cn7,"uncalibrated probability output, numeric row label",0.04156658491087098,0.13746672311556746
+pair_a1,20260924,cn7,"uncalibrated probability output, numeric row label",0.04156658491087098,0.13746672311556746
+pair_a1,ensemble,cn7,"uncalibrated probability output, numeric row label",0.04156658491087098,0.13746672311556746
+cat_row_a0,20260922,rg3,"weighted classifier, not calibrated",0.020766880618805918,0.10405459368733967
+cat_row_a0,20260923,rg3,"weighted classifier, not calibrated",0.020803274014881322,0.10488475463936356
+cat_row_a0,20260924,rg3,"weighted classifier, not calibrated",0.020777689829966858,0.10374007740074292
+cat_row_a0.25,20260922,rg3,"weighted classifier, not calibrated",0.021361557317415143,0.10854155691696188
+cat_row_a0.25,20260923,rg3,"weighted classifier, not calibrated",0.021226137435722225,0.10793569920598535
+cat_row_a0.25,20260924,rg3,"weighted classifier, not calibrated",0.021426230495610342,0.10892865548061265
+cat_row_a0.5,20260922,rg3,"weighted classifier, not calibrated",0.024187181886178764,0.125083529110944
+cat_row_a0.5,20260923,rg3,"weighted classifier, not calibrated",0.02381765784589632,0.12352688782292488
+cat_row_a0.5,20260924,rg3,"weighted classifier, not calibrated",0.02451355730265522,0.12599018403323445
+cat_row_a1,20260922,rg3,"weighted classifier, not calibrated",0.037204847499588294,0.1636513638921866
+cat_row_a1,20260923,rg3,"weighted classifier, not calibrated",0.0371644540016477,0.1622951710898916
+cat_row_a1,20260924,rg3,"weighted classifier, not calibrated",0.03834535091976181,0.1664632110170917

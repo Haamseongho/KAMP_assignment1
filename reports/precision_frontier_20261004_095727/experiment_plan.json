@@ -1,0 +1,171 @@
+{
+  "run_id": "precision_frontier_20261004_095727",
+  "created": "2026-10-04T10:04:30.560500+09:00",
+  "model_seeds": [
+    20260922,
+    20260923,
+    20260924
+  ],
+  "split_seed": 20261004,
+  "components": {
+    "cat_row_a1": {
+      "kind": "cat",
+      "representation": "row",
+      "alpha": 1.0
+    },
+    "cat_event_a1": {
+      "kind": "cat",
+      "representation": "event",
+      "alpha": 1.0
+    },
+    "cat_row_a0": {
+      "kind": "cat",
+      "representation": "row",
+      "alpha": 0.0
+    },
+    "cat_event_a0": {
+      "kind": "cat",
+      "representation": "event",
+      "alpha": 0.0
+    },
+    "cat_row_a0.25": {
+      "kind": "cat",
+      "representation": "row",
+      "alpha": 0.25
+    },
+    "cat_event_a0.25": {
+      "kind": "cat",
+      "representation": "event",
+      "alpha": 0.25
+    },
+    "cat_row_a0.5": {
+      "kind": "cat",
+      "representation": "row",
+      "alpha": 0.5
+    },
+    "cat_event_a0.5": {
+      "kind": "cat",
+      "representation": "event",
+      "alpha": 0.5
+    },
+    "rank_pairwise": {
+      "kind": "rank",
+      "representation": "row",
+      "objective": "rank:pairwise"
+    },
+    "rank_ndcg": {
+      "kind": "rank",
+      "representation": "row",
+      "objective": "rank:ndcg"
+    }
+  },
+  "pipelines": {
+    "pair_a1": {
+      "cat_row_a1": 0.5,
+      "cat_event_a1": 0.5
+    },
+    "pair_a0": {
+      "cat_row_a0": 0.5,
+      "cat_event_a0": 0.5
+    },
+    "pair_a0.25": {
+      "cat_row_a0.25": 0.5,
+      "cat_event_a0.25": 0.5
+    },
+    "pair_a0.5": {
+      "cat_row_a0.5": 0.5,
+      "cat_event_a0.5": 0.5
+    },
+    "rank_pairwise": {
+      "rank_pairwise": 1.0
+    },
+    "rank_ndcg": {
+      "rank_ndcg": 1.0
+    },
+    "mix_pairwise": {
+      "cat_row_a1": 0.25,
+      "cat_event_a1": 0.25,
+      "rank_pairwise": 0.5
+    },
+    "mix_ndcg": {
+      "cat_row_a1": 0.25,
+      "cat_event_a1": 0.25,
+      "rank_ndcg": 0.5
+    }
+  },
+  "anchor": "CN7 StandardScaler + balanced LR C1",
+  "objective": "inner three-seed ensemble TP at per-machine ceil(7.5%); ties RG3 AP, component count, fixed name order",
+  "outer": "existing frozen 5 grouped folds",
+  "inner": "shared grouped stratified 3 fold, split_seed fixed separate from model_seed",
+  "policy": "A: percentile ranks calculated once per full validation batch after raw inference; largest remainder allocation",
+  "budgets": [
+    0.05,
+    0.075,
+    0.1
+  ],
+  "tie": "descending score, ascending source_row_id; bootstrap draw_id tertiary",
+  "early_stopping": false,
+  "features": [
+    "Injection_Time",
+    "Filling_Time",
+    "Plasticizing_Time",
+    "Cycle_Time",
+    "Clamp_Close_Time",
+    "Cushion_Position",
+    "Plasticizing_Position",
+    "Clamp_Open_Position",
+    "Max_Injection_Speed",
+    "Max_Screw_RPM",
+    "Average_Screw_RPM",
+    "Max_Injection_Pressure",
+    "Max_Switch_Over_Pressure",
+    "Max_Back_Pressure",
+    "Average_Back_Pressure",
+    "Barrel_Temperature_1",
+    "Barrel_Temperature_2",
+    "Barrel_Temperature_3",
+    "Barrel_Temperature_4",
+    "Barrel_Temperature_5",
+    "Barrel_Temperature_6",
+    "Hopper_Temperature",
+    "Mold_Temperature_3",
+    "Mold_Temperature_4"
+  ],
+  "prior_results_known": true,
+  "outer_labels_for_selection": false,
+  "sensitivity": {
+    "split_seed": 20261005,
+    "folds": 3,
+    "model_seed": 20260922,
+    "pipelines": [
+      "pair_a1",
+      "pair_a0.5"
+    ],
+    "not_used_for_selection": true
+  },
+  "bootstrap": {
+    "repetitions": 2000,
+    "seed": 20261004,
+    "strata": [
+      "machine",
+      "batch",
+      "group_size"
+    ],
+    "unit": "whole group, unique draw_id",
+    "zero_positive": "recall/AP undefined, omit only from that CI"
+  },
+  "limits": {
+    "gpu_fits": 790,
+    "cpu_fits": 100,
+    "seconds": 7200,
+    "output_gib": 2,
+    "disk_reserve_gib": 5,
+    "gpu_reserve_mib": 768,
+    "threads": 2
+  },
+  "max_expected_gpu_fits": 746,
+  "optional_experiments": "no hard-negative, extra features or policy reallocation; limited information and compute",
+  "full_bundle_selection": "same 3-seed inner procedure on all development; never outer ranking of candidates",
+  "smoke": "first real fits verify backend/config; two additional auto-balanced fits compare effective class weights",
+  "failure": "stop and preserve checkpoints, no silent CPU fallback or result-driven new candidates"
+}

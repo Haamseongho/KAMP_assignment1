@@ -1,0 +1,43 @@
+{
+  "fit_failures": [],
+  "workflow_events": [
+    {
+      "stage": "initial_workflow",
+      "status": "fixed_before_any_fit",
+      "reason": "original ID column contains punctuation, replaced tuple attribute access with normalized identity"
+    },
+    {
+      "stage": "resource_guard",
+      "status": "checkpointed_and_resumed",
+      "reason": "transient disk free below 5 GiB; no file deletion; process exit recovered space; GC thresholds reduced",
+      "evidence": [
+        "training_attempt2.log",
+        "runtime_resume.json",
+        "training_attempt3.log"
+      ]
+    },
+    {
+      "stage": "feature_layout",
+      "status": "disclosed_and_legacy_baseline_reproduced",
+      "reason": "raw 24-column layout differs from legacy 23 sensors plus machine indicator; same within-machine information, different tree results",
+      "evidence": [
+        "feature_layout_audit.json",
+        "legacy_layout_metrics.csv"
+      ]
+    }
+  ],
+  "not_run": [
+    {
+      "experiment": "hard_negative/extra_features/partial_pooling/policy_reallocation",
+      "reason": "not mandatory; bounded H1/H2 isolation, no new information or adaptive expansion"
+    },
+    {
+      "experiment": "prospective validation",
+      "reason": "new independent labels unavailable"
+    },
+    {
+      "experiment": "strict legacy-layout full nested H1/H2 rerun",
+      "reason": "outside remaining predeclared fit budget; no model adoption; raw-layout nested results retained as explicitly limited research"
+    }
+  ]
+}

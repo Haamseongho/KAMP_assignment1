@@ -1,0 +1,4 @@
+positive_group_prevalence,required_positive_groups,expected_independent_groups,expected_rows_if_two_per_group
+0.01,96,9600,19200
+0.03,96,3200,6400
+0.05,96,1920,3840

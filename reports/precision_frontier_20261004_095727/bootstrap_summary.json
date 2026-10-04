@@ -1,0 +1,43 @@
+{
+  "comparison": "nested_selected minus fresh pair_a1, batch allocation",
+  "repetitions": 2000,
+  "confidence_interval": {
+    "delta_tp": {
+      "low": -4.0,
+      "high": 0.0,
+      "defined_replicates": 2000
+    },
+    "delta_fp": {
+      "low": 0.0,
+      "high": 4.0,
+      "defined_replicates": 2000
+    },
+    "delta_precision": {
+      "low": -0.027777777777777776,
+      "high": 0.0,
+      "defined_replicates": 2000
+    },
+    "delta_recall": {
+      "low": -0.1282051282051282,
+      "high": 0.0,
+      "defined_replicates": 2000
+    },
+    "delta_ap_cn7": {
+      "low": 0.0,
+      "high": 0.0,
+      "defined_replicates": 2000
+    },
+    "delta_ap_rg3": {
+      "low": -0.010066636625044057,
+      "high": 0.009247053202355544,
+      "defined_replicates": 2000
+    }
+  },
+  "scope": "conditional on fixed OOF; no retraining/search/future uncertainty",
+  "strata": [
+    "machine",
+    "batch",
+    "group_size"
+  ],
+  "zero_positive": "undefined recall/AP omitted only from that statistic"
+}

@@ -47,6 +47,11 @@ reports/**
 !reports/gpu_pc_20261004/recommended_policy.csv
 !reports/gpu_pc_20261004/balanced_decision.json
 !reports/gpu_pc_20261004/balance_tradeoff.png
+!reports/precision_frontier_20261004_095727/
+!reports/precision_frontier_20261004_095727/*.csv
+!reports/precision_frontier_20261004_095727/*.json
+!reports/precision_frontier_20261004_095727/*.md
+!reports/precision_frontier_20261004_095727/*.sha256
 outputs/**
 !outputs/.gitkeep
 config/task.json
