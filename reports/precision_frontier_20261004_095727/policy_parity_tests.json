@@ -1,0 +1,88 @@
+{
+  "status": "passed",
+  "tests": [
+    {
+      "test": "saved_outer_OOF_parity",
+      "fold": "0",
+      "max_error": 4.440892098500626e-16,
+      "passed": true
+    },
+    {
+      "test": "saved_outer_OOF_parity",
+      "fold": "1",
+      "max_error": 4.440892098500626e-16,
+      "passed": true
+    },
+    {
+      "test": "saved_outer_OOF_parity",
+      "fold": "2",
+      "max_error": 8.881784197001252e-16,
+      "passed": true
+    },
+    {
+      "test": "saved_outer_OOF_parity",
+      "fold": "3",
+      "max_error": 4.440892098500626e-16,
+      "passed": true
+    },
+    {
+      "test": "saved_outer_OOF_parity",
+      "fold": "4",
+      "max_error": 6.106226635438361e-16,
+      "passed": true
+    },
+    {
+      "test": "raw_chunk_then_global_rank",
+      "chunk": 1,
+      "max_error": 0.0,
+      "passed": true
+    },
+    {
+      "test": "raw_chunk_then_global_rank",
+      "chunk": 7,
+      "max_error": 0.0,
+      "passed": true
+    },
+    {
+      "test": "raw_chunk_then_global_rank",
+      "chunk": 128,
+      "max_error": 0.0,
+      "passed": true
+    },
+    {
+      "test": "row_order",
+      "passed": true
+    },
+    {
+      "test": "feature_column_order",
+      "passed": true
+    },
+    {
+      "test": "singleton_duplicate",
+      "passed": true,
+      "singleton_score": 1.0,
+      "not_probability": true
+    },
+    {
+      "test": "nan",
+      "passed": true
+    },
+    {
+      "test": "inf",
+      "passed": true
+    },
+    {
+      "test": "unknown_machine",
+      "passed": true
+    },
+    {
+      "test": "missing_feature",
+      "passed": true
+    },
+    {
+      "test": "corrupt_native_file",
+      "passed": true
+    }
+  ],
+  "tolerance": 1e-12
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "representation": "row",
+    "actual_class_weights": [
+      1,
+      46.25
+    ],
+    "ratio": 46.25,
+    "max_score_difference": 9.71445146547012e-17,
+    "note": "GPU refit nondeterminism permitted; effective class weights should match"
+  },
+  {
+    "representation": "event",
+    "actual_class_weights": [
+      1,
+      22.625
+    ],
+    "ratio": 22.625,
+    "max_score_difference": 9.367506770274758e-17,
+    "note": "GPU refit nondeterminism permitted; effective class weights should match"
+  }
+]
